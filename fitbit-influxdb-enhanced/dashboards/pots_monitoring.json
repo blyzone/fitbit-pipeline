@@ -1,0 +1,35 @@
+{
+  "title": "POTS Monitoring Dashboard",
+  "panels": [
+    {
+      "title": "Heart Rate Intraday",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "from(bucket: \"fitbit\")\n  |> range(start: -1d)\n  |> filter(fn: (r) => r._measurement == \"activities_heart_intraday\")\n  |> filter(fn: (r) => r._field == \"value\"",
+          "legendFormat": "{{_field}}"
+        }
+      ]
+    },
+    {
+      "title": "Activity vs HRV",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "from(bucket: \"fitbit\")\n  |> range(start: -7d)\n  |> filter(fn: (r) => r._measurement == \"activities_steps\")\n  |> filter(fn: (r) => r._field == \"value\"",
+          "legendFormat": "{{_field}}"
+        }
+      ]
+    },
+    {
+      "title": "HRV",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "from(bucket: \"fitbit\")\n  |> range(start: -7d)\n  |> filter(fn: (r) => r._measurement == \"hrv\")\n  |> filter(fn: (r) => r._field == \"rmssd\"",
+          "legendFormat": "HRV"
+        }
+      ]
+    }
+  ]
+}
